@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Journal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Daily Journal</h1>
+            <nav>
+                <a href="{{ url_for('index') }}" class="nav-link">Today's Entry</a>
+                <a href="{{ url_for('view_entries') }}" class="nav-link">View All Entries</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="journal-form">
+                <div class="date-header">
+                    <h2>{{ today }}</h2>
+                    <p class="date-subtext">How was your day?</p>
+                </div>
+
+                <form id="journalForm">
+                    <textarea 
+                        id="journalContent" 
+                        name="content" 
+                        placeholder="Start writing your thoughts for today..."
+                        rows="15"
+                        required>{% if existing_entry %}{{ existing_entry }}{% endif %}</textarea>
+                    
+                    <input type="hidden" id="entryDate" name="date" value="{{ today }}">
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="save-btn">
+                            <span class="save-text">Save Entry</span>
+                            <span class="save-loading" style="display: none;">Saving...</span>
+                        </button>
+                        <div class="save-status" id="saveStatus"></div>
+                    </div>
+                </form>
+
+                <div class="word-count">
+                    <span id="wordCount">0 words</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+
+
+
+
+

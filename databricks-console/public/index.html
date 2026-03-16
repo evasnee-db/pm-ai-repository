@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Databricks Console</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3L3 8.5V15.5L12 21L21 15.5V8.5L12 3Z" stroke="#FF3621" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M3 8.5L12 14L21 8.5" stroke="#FF3621" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M12 14V21" stroke="#FF3621" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+                <span>Databricks</span>
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search notebooks, tables, workflows… (⌘K)">
+                <kbd>⌘K</kbd>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="nav-icon-btn theme-toggle" title="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="nav-icon-btn" title="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="badge-dot"></span>
+            </button>
+            <div class="user-avatar" title="John Doe">JD</div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-item active" data-label="Home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="sidebar-item" data-label="Workspace">
+                <i class="fas fa-folder-open"></i>
+                <span>Workspace</span>
+            </a>
+            <a href="#" class="sidebar-item" data-label="Notebooks">
+                <i class="fas fa-code"></i>
+                <span>Notebooks</span>
+            </a>
+            <a href="#" class="sidebar-item" data-label="Data">
+                <i class="fas fa-database"></i>
+                <span>Data</span>
+            </a>
+            <a href="#" class="sidebar-item" data-label="SQL">
+                <i class="fas fa-chart-bar"></i>
+                <span>SQL</span>
+            </a>
+            <a href="#" class="sidebar-item" data-label="Workflows">
+                <i class="fas fa-project-diagram"></i>
+                <span>Workflows</span>
+            </a>
+            <a href="#" class="sidebar-item" data-label="Compute">
+                <i class="fas fa-server"></i>
+                <span>Compute</span>
+            </a>
+            <a href="#" class="sidebar-item" data-label="ML">
+                <i class="fas fa-robot"></i>
+                <span>ML</span>
+            </a>
+        </nav>
+        <nav class="sidebar-nav sidebar-bottom-nav">
+            <div class="sidebar-divider"></div>
+            <a href="#" class="sidebar-item" data-label="Help">
+                <i class="fas fa-question-circle"></i>
+                <span>Help</span>
+            </a>
+            <a href="#" class="sidebar-item" data-label="Docs">
+                <i class="fas fa-book"></i>
+                <span>Docs</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Mobile overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-text">
+                <h1 id="greeting">Good morning, John</h1>
+                <p>My workspace · <span class="workspace-name">acme-corp-prod</span></p>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value">3</span>
+                    <span class="stat-label">Running clusters</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">12</span>
+                    <span class="stat-label">Notebooks</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">5</span>
+                    <span class="stat-label">Active workflows</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="action-btn action-btn-primary" onclick="handleAction('Create Notebook')">
+                <i class="fas fa-plus"></i>
+                <span>New Notebook</span>
+            </button>
+            <button class="action-btn" onclick="handleAction('Run SQL Query')">
+                <i class="fas fa-terminal"></i>
+                <span>SQL Query</span>
+            </button>
+            <button class="action-btn" onclick="handleAction('Import Data')">
+                <i class="fas fa-upload"></i>
+                <span>Import Data</span>
+            </button>
+            <button class="action-btn" onclick="handleAction('Create Cluster')">
+                <i class="fas fa-server"></i>
+                <span>New Cluster</span>
+            </button>
+            <button class="action-btn" onclick="handleAction('Create Workflow')">
+                <i class="fas fa-project-diagram"></i>
+                <span>New Workflow</span>
+            </button>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+
+            <!-- Recent Items -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Recent</h2>
+                    <a href="#" class="link-subtle">View all</a>
+                </div>
+                <div class="recent-list">
+                    <a href="#" class="recent-item">
+                        <div class="recent-icon notebook">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="recent-info">
+                            <span class="recent-name">Data Analysis Pipeline</span>
+                            <span class="recent-meta">Python · 2 hours ago</span>
+                        </div>
+                        <span class="recent-user">JD</span>
+                    </a>
+                    <a href="#" class="recent-item">
+                        <div class="recent-icon sql">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="recent-info">
+                            <span class="recent-name">Customer Segmentation</span>
+                            <span class="recent-meta">SQL · 5 hours ago</span>
+                        </div>
+                        <span class="recent-user">JS</span>
+                    </a>
+                    <a href="#" class="recent-item">
+                        <div class="recent-icon notebook">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="recent-info">
+                            <span class="recent-name">ML Model Training</span>
+                            <span class="recent-meta">Python · Yesterday</span>
+                        </div>
+                        <span class="recent-user">JD</span>
+                    </a>
+                    <a href="#" class="recent-item">
+                        <div class="recent-icon workflow">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="recent-info">
+                            <span class="recent-name">Revenue Dashboard</span>
+                            <span class="recent-meta">Workflow · 2 days ago</span>
+                        </div>
+                        <span class="recent-user">MJ</span>
+                    </a>
+                    <a href="#" class="recent-item">
+                        <div class="recent-icon data">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="recent-info">
+                            <span class="recent-name">sales_transactions</span>
+                            <span class="recent-meta">Delta Table · 3 days ago</span>
+                        </div>
+                        <span class="recent-user">JD</span>
+                    </a>
+                    <a href="#" class="recent-item">
+                        <div class="recent-icon notebook">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="recent-info">
+                            <span class="recent-name">Churn Prediction v2</span>
+                            <span class="recent-meta">Python · 4 days ago</span>
+                        </div>
+                        <span class="recent-user">JS</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Compute Clusters -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Compute</h2>
+                    <button class="btn-ghost" onclick="handleAction('Create Cluster')">
+                        <i class="fas fa-plus"></i> New
+                    </button>
+                </div>
+                <div class="cluster-list">
+                    <div class="cluster-item">
+                        <div class="cluster-info">
+                            <div class="cluster-dot running"></div>
+                            <div class="cluster-details">
+                                <span class="cluster-name">production-cluster-01</span>
+                                <span class="cluster-spec">4 workers · i3.xlarge · 3h 24m</span>
+                            </div>
+                        </div>
+                        <div class="cluster-actions">
+                            <button class="btn-ghost-sm" onclick="handleAction('Configure production-cluster-01')">Configure</button>
+                            <button class="btn-danger-sm" onclick="handleClusterAction(this, 'Terminate')">Terminate</button>
+                        </div>
+                    </div>
+                    <div class="cluster-item">
+                        <div class="cluster-info">
+                            <div class="cluster-dot stopped"></div>
+                            <div class="cluster-details">
+                                <span class="cluster-name">dev-cluster-02</span>
+                                <span class="cluster-spec">2 workers · i3.large · last used 2d ago</span>
+                            </div>
+                        </div>
+                        <div class="cluster-actions">
+                            <button class="btn-primary-sm" onclick="handleClusterAction(this, 'Start')">Start</button>
+                            <button class="btn-ghost-sm" onclick="handleAction('Configure dev-cluster-02')">Configure</button>
+                        </div>
+                    </div>
+                    <div class="cluster-item">
+                        <div class="cluster-info">
+                            <div class="cluster-dot running"></div>
+                            <div class="cluster-details">
+                                <span class="cluster-name">ml-training-03</span>
+                                <span class="cluster-spec">8 workers · p3.2xlarge · 1h 07m</span>
+                            </div>
+                        </div>
+                        <div class="cluster-actions">
+                            <button class="btn-ghost-sm" onclick="handleAction('Configure ml-training-03')">Configure</button>
+                            <button class="btn-danger-sm" onclick="handleClusterAction(this, 'Terminate')">Terminate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

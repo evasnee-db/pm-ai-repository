@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Journal Entries</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Daily Journal</h1>
+            <nav>
+                <a href="{{ url_for('index') }}" class="nav-link">Today's Entry</a>
+                <a href="{{ url_for('view_entries') }}" class="nav-link active">View All Entries</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="entries-list">
+                <h2>Your Journal Entries</h2>
+                
+                {% if entries %}
+                    <div class="entries-grid">
+                        {% for date, content in entries %}
+                            <div class="entry-card">
+                                <div class="entry-date">
+                                    {{ date }}
+                                </div>
+                                <div class="entry-preview">
+                                    {{ content[:200] }}{% if content|length > 200 %}...{% endif %}
+                                </div>
+                                <div class="entry-actions">
+                                    <a href="{{ url_for('view_entry', date=date) }}" class="read-more-btn">Read Full Entry</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <p>No journal entries yet.</p>
+                        <a href="{{ url_for('index') }}" class="start-writing-btn">Start Writing Today</a>
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Entry - {{ date }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Daily Journal</h1>
+            <nav>
+                <a href="{{ url_for('index') }}" class="nav-link">Today's Entry</a>
+                <a href="{{ url_for('view_entries') }}" class="nav-link">View All Entries</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="single-entry">
+                <div class="entry-header">
+                    <h2>{{ date }}</h2>
+                    <a href="{{ url_for('view_entries') }}" class="back-btn">← Back to All Entries</a>
+                </div>
+                
+                <div class="entry-content">
+                    {{ content|nl2br|safe }}
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+
+
+
+
+
